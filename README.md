@@ -1,5 +1,5 @@
 Core:
-  -Application designed to simulate task management process by roles and users.
+  -Application designed to simulate task management process between users.
   
 Architecture
    -DDD
