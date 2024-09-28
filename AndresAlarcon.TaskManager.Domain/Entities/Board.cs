@@ -16,13 +16,11 @@ namespace AndresAlarcon.TaskManager.Domain.Entities
         [Column("DueDate", TypeName = "datetime")]
         public DateTime DueDate { get; set; }
 
-        [Column("StatusId", TypeName = "varchar(20)")]
-        [ForeignKey("Status")]
-        public string StatusId { get; set; }
+        [Column("Status", TypeName = "varchar(20)")]
+        public string Status { get; set; }
 
-        [Column("PriorityId", TypeName = "varchar(20)")]
-        [ForeignKey("Priority")]
-        public string PriorityId { get; set; }
+        [Column("Priority", TypeName = "varchar(20)")]
+        public string Priority { get; set; }
 
         [Column("AssignedTo", TypeName = "uniqueidentifier")]
         [ForeignKey("User")]

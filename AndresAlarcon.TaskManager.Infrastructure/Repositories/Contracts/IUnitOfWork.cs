@@ -8,6 +8,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories.Contracts
     public interface IUnitOfWork : IDisposable
     {
         IRepository<User, Guid> UserRepository { get; }
+        IRepository<Board, int> BoardRepository { get; }
 
         #region Methods
         Task SaveChangesAsync();

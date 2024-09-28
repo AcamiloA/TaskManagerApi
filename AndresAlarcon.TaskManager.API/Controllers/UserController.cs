@@ -31,6 +31,8 @@ namespace AndresAlarcon.TaskManager.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("{echo}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public ActionResult<string> Echo(string echo)
         {
             return Ok($"Ejecución correcta: {echo}");
@@ -43,6 +45,8 @@ namespace AndresAlarcon.TaskManager.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<Response>> Register([FromBody] UserDTO user)
         {
             try
@@ -71,6 +75,8 @@ namespace AndresAlarcon.TaskManager.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IOAuth2Response>> Login([FromBody] LoginDTO login)
         {
             try

@@ -13,6 +13,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories
 
 
         public IRepository<User, Guid> UserRepository => new Repository<User, Guid>(_dbContext);
+        public IRepository<Board, int> BoardRepository => new Repository<Board, int>(_dbContext);
 
         #region Methods        
 
@@ -29,14 +30,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories
 
         public async Task SaveChangesAsync()
         {
-            try
-            {
-                await _dbContext.SaveChangesAsync();
-            }
-            catch(Exception ex)
-            {
-
-            }
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task BeginTransactionAsync()
@@ -53,7 +47,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories
         {
             await _transaction.RollbackAsync();
         }
-        
+
         #endregion
     }
 }
