@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITaskBoardService, TaskBoardService>();
 
 builder.Services.Configure<JwtSecuritySettings>(jwtSecuritySettingsSection);
 builder.Services.AddIdentityJwt(builder.Configuration);
@@ -64,6 +65,15 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddControllers();
 
+builder.Services.AddCors(cors =>
+{
+    cors.AddPolicy("AllowAnyOrigin", builder =>
+    {
+        builder.AllowAnyOrigin().
+        AllowAnyHeader().
+        AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -73,6 +83,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowAnyOrigin");
 
 app.UseHttpsRedirection();
 

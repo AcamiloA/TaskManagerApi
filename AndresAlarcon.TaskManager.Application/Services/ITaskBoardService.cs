@@ -16,7 +16,7 @@ namespace AndresAlarcon.TaskManager.Application.Services
         /// Obtiene todas las tareas de forma asíncrona.
         /// </summary>
         /// <returns>Una lista de tareas.</returns>
-        Task<IEnumerable<TaskBoardDTO>> GetAllTasksAsync();
+        Task<IEnumerable<object>> GetAllTasksAsync();
 
         /// <summary>
         /// Obtiene una tarea por su ID de forma asíncrona.
