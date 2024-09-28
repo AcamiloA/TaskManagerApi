@@ -4,6 +4,7 @@ using AndresAlarcon.TaskManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240928151728_FixEntities_Priority&Status")]
+    partial class FixEntities_PriorityStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,10 +32,6 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("AssignedTo")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("AssignedTo");
 
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier")
@@ -55,36 +54,40 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("IsActive");
 
-                    b.Property<string>("Priority")
+                    b.Property<string>("PriorityId")
                         .IsRequired()
                         .HasColumnType("varchar(20)")
-                        .HasColumnName("Priority");
+                        .HasColumnName("PriorityId");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("StatusId")
                         .IsRequired()
                         .HasColumnType("varchar(20)")
-                        .HasColumnName("Status");
+                        .HasColumnName("StatusId");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("varchar(250)")
                         .HasColumnName("Title");
 
-                    b.Property<Guid?>("UpdatedBy")
+                    b.Property<Guid>("UpdatedBy")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("UpdatedBy");
 
-                    b.Property<DateTime?>("UpdatedOn")
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime")
                         .HasColumnName("UpdatedOn");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UserId");
 
-                    b.HasIndex("AssignedTo");
+                    b.HasKey("Id");
 
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("UpdatedBy");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Board", "TaskManager");
                 });
@@ -97,6 +100,14 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime")
+                        .HasColumnName("CreatedOn");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit")
                         .HasColumnName("IsActive");
@@ -106,51 +117,21 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Name");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Role", "TaskManager");
-                });
-
-            modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.Trace", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoardId")
-                        .HasColumnType("int")
-                        .HasColumnName("BoardId");
-
-                    b.Property<Guid>("CurrentAssignedTo")
+                    b.Property<Guid>("UpdatedBy")
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CurrentAssignedTo");
-
-                    b.Property<string>("CurrentState")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("LastAssignedTo")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastAssignedTo");
-
-                    b.Property<string>("LastState")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("UpdatedBy");
 
                     b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime")
+                        .HasColumnName("UpdatedOn");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BoardId");
+                    b.HasIndex("CreatedBy");
 
-                    b.HasIndex("CurrentAssignedTo");
+                    b.HasIndex("UpdatedBy");
 
-                    b.HasIndex("LastAssignedTo");
-
-                    b.ToTable("Trace", "TaskManager");
+                    b.ToTable("Role", "TaskManager");
                 });
 
             modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.User", b =>
@@ -181,12 +162,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("RoleId");
 
-                    b.Property<string>("Salt")
-                        .IsRequired()
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("Salt");
-
-                    b.Property<DateTime?>("UpdatedOn")
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime")
                         .HasColumnName("UpdatedOn");
 
@@ -204,12 +180,6 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
 
             modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.Board", b =>
                 {
-                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("AssignedTo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
@@ -219,7 +189,14 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                     b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "Updater")
                         .WithMany()
                         .HasForeignKey("UpdatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Creator");
 
@@ -228,30 +205,23 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.Trace", b =>
+            modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.Role", b =>
                 {
-                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.Board", "Board")
+                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "Creator")
                         .WithMany()
-                        .HasForeignKey("BoardId")
+                        .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "CurrentUser")
+                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "Updater")
                         .WithMany()
-                        .HasForeignKey("CurrentAssignedTo")
+                        .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "LastUser")
-                        .WithMany()
-                        .HasForeignKey("LastAssignedTo")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.Navigation("Creator");
 
-                    b.Navigation("Board");
-
-                    b.Navigation("CurrentUser");
-
-                    b.Navigation("LastUser");
+                    b.Navigation("Updater");
                 });
 
             modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.User", b =>

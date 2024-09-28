@@ -4,6 +4,7 @@ using AndresAlarcon.TaskManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240928162706_FixUserEntity")]
+    partial class FixUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,15 +58,15 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("IsActive");
 
-                    b.Property<string>("Priority")
+                    b.Property<string>("PriorityId")
                         .IsRequired()
                         .HasColumnType("varchar(20)")
-                        .HasColumnName("Priority");
+                        .HasColumnName("PriorityId");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("StatusId")
                         .IsRequired()
                         .HasColumnType("varchar(20)")
-                        .HasColumnName("Status");
+                        .HasColumnName("StatusId");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -111,48 +114,6 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                     b.ToTable("Role", "TaskManager");
                 });
 
-            modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.Trace", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoardId")
-                        .HasColumnType("int")
-                        .HasColumnName("BoardId");
-
-                    b.Property<Guid>("CurrentAssignedTo")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CurrentAssignedTo");
-
-                    b.Property<string>("CurrentState")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("LastAssignedTo")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastAssignedTo");
-
-                    b.Property<string>("LastState")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
-
-                    b.HasIndex("CurrentAssignedTo");
-
-                    b.HasIndex("LastAssignedTo");
-
-                    b.ToTable("Trace", "TaskManager");
-                });
-
             modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -186,7 +147,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                         .HasColumnType("varchar(250)")
                         .HasColumnName("Salt");
 
-                    b.Property<DateTime?>("UpdatedOn")
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime")
                         .HasColumnName("UpdatedOn");
 
@@ -226,32 +187,6 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Migrations
                     b.Navigation("Updater");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.Trace", b =>
-                {
-                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.Board", "Board")
-                        .WithMany()
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "CurrentUser")
-                        .WithMany()
-                        .HasForeignKey("CurrentAssignedTo")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("AndresAlarcon.TaskManager.Domain.Entities.User", "LastUser")
-                        .WithMany()
-                        .HasForeignKey("LastAssignedTo")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Board");
-
-                    b.Navigation("CurrentUser");
-
-                    b.Navigation("LastUser");
                 });
 
             modelBuilder.Entity("AndresAlarcon.TaskManager.Domain.Entities.User", b =>
