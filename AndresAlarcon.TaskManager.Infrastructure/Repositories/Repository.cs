@@ -9,7 +9,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories
     public class Repository<T, TKey>(AppDbContext dbContext) : IRepository<T, TKey> where T : BaseEntity<TKey>
     {
         private readonly AppDbContext _dbContext = dbContext;
-        internal readonly DbSet<T> _entities = dbContext.Set<T>();
+        private readonly DbSet<T> _entities = dbContext.Set<T>();
 
         public async Task<TKey> Add(T entity)
         {

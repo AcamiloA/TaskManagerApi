@@ -4,30 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AndresAlarcon.TaskManager.Domain.Entities
 {
-    [Table("Priority", Schema = DataConstants.SCHEMA)]
-    public class Priority : BaseEntity<int>
+    public class Priority
     {
-        [Column("Name", TypeName = "varchar(50)")]
-        public string Name { get; set; }
-
-        [Column("IsActive", TypeName = "bit")]
-        public bool IsActive { get; set; }
-
-        [Column("CreatedOn", TypeName = "datetime")]
-        public DateTime CreatedOn { get; set; }
-
-        [Column("CreatedBy", TypeName = "uniqueidentifier")]
-        [ForeignKey("Creator")]
-        public Guid CreatedBy { get; set; }
-
-        [Column("UpdatedOn", TypeName = "datetime")]
-        public DateTime UpdatedOn { get; set; }
-
-        [Column("UpdatedBy", TypeName = "uniqueidentifier")]
-        [ForeignKey("Updater")]
-        public Guid UpdatedBy { get; set; }
-
-        public virtual User Creator { get; set; }
-        public virtual User Updater { get; set; }
+        public const string HIGH = "High";
+        public const string MEDIUM = "Medium";
+        public const string LOW = "Low";        
     }
 }

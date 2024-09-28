@@ -16,17 +16,17 @@ namespace AndresAlarcon.TaskManager.Domain.Entities
         [Column("DueDate", TypeName = "datetime")]
         public DateTime DueDate { get; set; }
 
-        [Column("StatusId", TypeName = "int")]
+        [Column("StatusId", TypeName = "varchar(20)")]
         [ForeignKey("Status")]
-        public int StatusId { get; set; }
+        public string StatusId { get; set; }
 
-        [Column("PriorityId", TypeName = "int")]
+        [Column("PriorityId", TypeName = "varchar(20)")]
         [ForeignKey("Priority")]
-        public int PriorityId { get; set; }
+        public string PriorityId { get; set; }
 
-        [Column("UserId", TypeName = "uniqueidentifier")]
+        [Column("AssignedTo", TypeName = "uniqueidentifier")]
         [ForeignKey("User")]
-        public Guid UserId { get; set; }
+        public Guid AssignedTo { get; set; }
 
         [Column("IsActive", TypeName = "bit")]
         public bool IsActive { get; set; }
@@ -39,16 +39,14 @@ namespace AndresAlarcon.TaskManager.Domain.Entities
         public Guid CreatedBy { get; set; }
 
         [Column("UpdatedOn", TypeName = "datetime")]
-        public DateTime UpdatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
 
         [Column("UpdatedBy", TypeName = "uniqueidentifier")]
         [ForeignKey("Updater")]
-        public Guid UpdatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
 
         public virtual User Creator { get; set; }
         public virtual User Updater { get; set; }
         public virtual User User { get; set; } 
-        public virtual Status Status { get; set; } 
-        public virtual Priority Priority { get; set; } 
     }
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AndresAlarcon.TaskManager.API</name>
+    </assembly>
+    <members>
+        <member name="T:AndresAlarcon.TaskManager.API.Controllers.UserController">
+            <summary>
+            Controlador para tratamiento de información del usuario
+            </summary>
+            <param name="userService"></param>
+            <param name="jwtSettings"></param>
+        </member>
+        <member name="M:AndresAlarcon.TaskManager.API.Controllers.UserController.#ctor(AndresAlarcon.TaskManager.Application.Services.IUserService,Microsoft.Extensions.Options.IOptions{AndresAlarcon.TaskManager.Application.Security.JwtSecuritySettings})">
+            <summary>
+            Controlador para tratamiento de información del usuario
+            </summary>
+            <param name="userService"></param>
+            <param name="jwtSettings"></param>
+        </member>
+        <member name="M:AndresAlarcon.TaskManager.API.Controllers.UserController.Echo(System.String)">
+            <summary>
+                Endpoint de prueba para validar si el api esta funcionando correctamente.
+            </summary>
+            <param name="echo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AndresAlarcon.TaskManager.API.Controllers.UserController.Register(AndresAlarcon.TaskManager.Application.DTOs.UserDTO)">
+            <summary>
+            Método para registrarse por primera vez
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AndresAlarcon.TaskManager.API.Controllers.UserController.Login(AndresAlarcon.TaskManager.Application.DTOs.LoginDTO)">
+            <summary>
+            Método para registrarse por primera vez
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AndresAlarcon.TaskManager.API.Controllers.UserController.BuildToken(AndresAlarcon.TaskManager.Application.DTOs.TokenDTO)">
+            <summary>
+            Construye el token de autenticación
+            </summary>
+            <param name="user">Usuario</param>
+            <returns></returns>
+        </member>
+        <member name="T:AndresAlarcon.TaskManager.API.Helpers.Response">
+            <summary>
+            manejador de respuestas de API
+            </summary>
+        </member>
+        <member name="P:AndresAlarcon.TaskManager.API.Helpers.Response.IsSuccess">
+            <summary>
+            estado
+            </summary>
+        </member>
+        <member name="P:AndresAlarcon.TaskManager.API.Helpers.Response.Message">
+            <summary>
+            Mensaje de respuesta
+            </summary>
+        </member>
+        <member name="P:AndresAlarcon.TaskManager.API.Helpers.Response.Errors">
+            <summary>
+            Errores
+            </summary>
+        </member>
+        <member name="T:AndresAlarcon.TaskManager.API.Helpers.ServiceExtensionsJWT">
+            <summary>
+            Extensión de servicio para incluir validación del token JWT
+            </summary>
+        </member>
+        <member name="M:AndresAlarcon.TaskManager.API.Helpers.ServiceExtensionsJWT.AddIdentityJwt(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Extensión del servicio para incluir la validación del JWT Token
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+    </members>
+</doc>

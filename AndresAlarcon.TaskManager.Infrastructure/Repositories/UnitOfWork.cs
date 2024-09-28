@@ -1,4 +1,5 @@
-﻿using AndresAlarcon.TaskManager.Application.Contracts;
+﻿using AndresAlarcon.TaskManager.Application.Repositories;
+using AndresAlarcon.TaskManager.Domain.Entities;
 using AndresAlarcon.TaskManager.Infrastructure.Data;
 using AndresAlarcon.TaskManager.Infrastructure.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -7,8 +8,13 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories
 {
     public class UnitOfWork(AppDbContext dbContext) : IUnitOfWork
     {
-        private readonly AppDbContext _dbContext;
+        private readonly AppDbContext _dbContext = dbContext;
         private IDbContextTransaction _transaction;
+
+
+        public IRepository<User, Guid> UserRepository => new Repository<User, Guid>(_dbContext);
+
+        #region Methods        
 
         public async void Dispose()
         {
@@ -23,7 +29,14 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories
 
         public async Task SaveChangesAsync()
         {
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         public async Task BeginTransactionAsync()
@@ -40,5 +53,7 @@ namespace AndresAlarcon.TaskManager.Infrastructure.Repositories
         {
             await _transaction.RollbackAsync();
         }
+        
+        #endregion
     }
 }

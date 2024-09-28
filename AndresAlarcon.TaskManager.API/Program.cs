@@ -1,16 +1,69 @@
+using AndresAlarcon.TaskManager.Application.Security;
 using AndresAlarcon.TaskManager.Infrastructure.Data;
+using AndresAlarcon.TaskManager.Infrastructure.Repositories.Contracts;
+using AndresAlarcon.TaskManager.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using AndresAlarcon.TaskManager.Application.Repositories;
+using AndresAlarcon.TaskManager.Application.Services;
+using AndresAlarcon.TaskManager.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using AndresAlarcon.TaskManager.API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
+var jwtSecuritySettingsSection = builder.Configuration.GetSection(nameof(JwtSecuritySettings));
 
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
+
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.Configure<JwtSecuritySettings>(jwtSecuritySettingsSection);
+builder.Services.AddIdentityJwt(builder.Configuration);
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "TaskManager API",
+        Version = "v1",
+        Description = "API para la gestion de tareas, proyecto realizado por ANDRÉS ALARCÓN para Amadeus como prueba técnica.",
+        Contact = new OpenApiContact
+        {
+            Name = "Andrés Camilo Alarcón Rátiva",
+            Email = "acalarcon7@gmail.com",
+        },
+    });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+
+    var securityScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Jwt Authorization. **Token only**",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    options.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            securityScheme,
+            new List<string>()
+        }
+    });
+});
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -22,6 +75,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
