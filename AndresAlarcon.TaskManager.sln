@@ -3,9 +3,56 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B3D0BBBA-4F2F-4B1B-BD2E-E1AB3E1764F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{93D33A34-1AC2-4CBF-8399-B2C727294A75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndresAlarcon.TaskManager.API", "AndresAlarcon.TaskManager.API\AndresAlarcon.TaskManager.API.csproj", "{A249307E-ABD6-4D48-947C-EF134B222D79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndresAlarcon.TaskManager.Domain", "AndresAlarcon.TaskManager.Domain\AndresAlarcon.TaskManager.Domain.csproj", "{B263A422-5F57-401E-9B68-9B242AB1E935}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndresAlarcon.TaskManager.Application", "AndresAlarcon.TaskManager.Application\AndresAlarcon.TaskManager.Application.csproj", "{195094A9-0D4F-4E11-9D69-06766894F8C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndresAlarcon.TaskManager.Infrastructure", "AndresAlarcon.TaskManager.Infrastructure\AndresAlarcon.TaskManager.Infrastructure.csproj", "{00CE9961-2492-47A2-BF77-DABB7C5C1346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndresAlarcon.TaskManager.Test", "AndresAlarcon.TaskManager.Test\AndresAlarcon.TaskManager.Test.csproj", "{ADC0E92E-3FB1-4D8C-A4D0-2A05B985A912}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A249307E-ABD6-4D48-947C-EF134B222D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A249307E-ABD6-4D48-947C-EF134B222D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A249307E-ABD6-4D48-947C-EF134B222D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A249307E-ABD6-4D48-947C-EF134B222D79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B263A422-5F57-401E-9B68-9B242AB1E935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B263A422-5F57-401E-9B68-9B242AB1E935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B263A422-5F57-401E-9B68-9B242AB1E935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B263A422-5F57-401E-9B68-9B242AB1E935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{195094A9-0D4F-4E11-9D69-06766894F8C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{195094A9-0D4F-4E11-9D69-06766894F8C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{195094A9-0D4F-4E11-9D69-06766894F8C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{195094A9-0D4F-4E11-9D69-06766894F8C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00CE9961-2492-47A2-BF77-DABB7C5C1346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00CE9961-2492-47A2-BF77-DABB7C5C1346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00CE9961-2492-47A2-BF77-DABB7C5C1346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00CE9961-2492-47A2-BF77-DABB7C5C1346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC0E92E-3FB1-4D8C-A4D0-2A05B985A912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC0E92E-3FB1-4D8C-A4D0-2A05B985A912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC0E92E-3FB1-4D8C-A4D0-2A05B985A912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC0E92E-3FB1-4D8C-A4D0-2A05B985A912}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A249307E-ABD6-4D48-947C-EF134B222D79} = {B3D0BBBA-4F2F-4B1B-BD2E-E1AB3E1764F8}
+		{B263A422-5F57-401E-9B68-9B242AB1E935} = {B3D0BBBA-4F2F-4B1B-BD2E-E1AB3E1764F8}
+		{195094A9-0D4F-4E11-9D69-06766894F8C9} = {B3D0BBBA-4F2F-4B1B-BD2E-E1AB3E1764F8}
+		{00CE9961-2492-47A2-BF77-DABB7C5C1346} = {B3D0BBBA-4F2F-4B1B-BD2E-E1AB3E1764F8}
+		{ADC0E92E-3FB1-4D8C-A4D0-2A05B985A912} = {93D33A34-1AC2-4CBF-8399-B2C727294A75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7BE88F07-AE21-451D-97F6-442E8E2DD7CD}
