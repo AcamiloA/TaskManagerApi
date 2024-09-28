@@ -1,12 +1,11 @@
-﻿using AndresAlarcon.TaskManager.API.Helpers;
-using AndresAlarcon.TaskManager.Application.DTOs;
+﻿using AndresAlarcon.TaskManager.Application.DTOs;
 using AndresAlarcon.TaskManager.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AndresAlarcon.TaskManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize]
     public class TaskBoardController(ITaskBoardService taskService) : ControllerBase
