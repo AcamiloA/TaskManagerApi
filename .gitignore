@@ -1,0 +1,12 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/AndresAlarcon.TaskManager.API/obj
+/AndresAlarcon.TaskManager.API/Properties
+/AndresAlarcon.TaskManager.Application/obj
+/AndresAlarcon.TaskManager.Domain/obj
+/AndresAlarcon.TaskManager.Infrastructure/obj
+/AndresAlarcon.TaskManager.Test/obj
+/.vs/AndresAlarcon.TaskManager/v17/.suo
